@@ -24,7 +24,7 @@ async function initView(data, neuranetappIn) {
     data.VIEW_PATH = VIEW_PATH;
     const id = session.get(APP_CONSTANTS.USERID).toString(), org = session.get(APP_CONSTANTS.USERORG).toString();
     const aiAppsResult = await apiman.rest(`${APP_CONSTANTS.API_PATH}/${API_GET_AIAPPS}`, "GET", {id, org, unpublished: true}, true);
-    data.aiapps = aiAppsResult.result ? aiAppsResult.aiapps : [];
+    data.aiapps = aiAppsResult.result ? aiAppsResult.aiapps.filter(item => item.admins.includes(id) || item.admins.includes("*")) : [];
     const skippable_file_patternsSet = aiAppsResult.aiapps.find(item => Array.isArray(item.interface.skippable_file_patterns));
     const skippable_file_patterns = skippable_file_patternsSet ? skippable_file_patternsSet.interface.skippable_file_patterns : [];
     data.aiskipfolders_base64_json = skippable_file_patterns ? util.stringToBase64(JSON.stringify(skippable_file_patterns)) : undefined;

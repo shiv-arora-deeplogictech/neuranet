@@ -64,7 +64,7 @@ function error(element, message) {
  */
 const showMessage = (message, hostID, callback=_=>{}) => monkshu_env.components['dialog-box'].showDialog(
     `${COMPONENT_PATH}/templates/message.html`, true, false, {message}, hostID, [], 
-    _=> {monkshu_env.components['dialog-box'].hideDialog(hostID); callback();} );
+    _=> {monkshu_env.components['dialog-box'].hideDialog(hostID); callback(); router.reload();} );
 
 /**
  * Hides the error being shown on the dialog
