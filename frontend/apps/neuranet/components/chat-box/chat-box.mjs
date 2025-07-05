@@ -130,6 +130,13 @@ function _insertAIResponse(shadowRoot, userMessageArea, userPrompt, aiResponse, 
 function _latexedMarkdownToHTML(text) {
     try {
         const latexBoundariedText = text.replace(/\\\[([\s\S]*?)\\\]/g, '<div class=\"maths\">$1</div>');
+        if (latexBoundariedText.trim().startsWith('<svg')) {
+        const svgMatch = latexBoundariedText.match(/<svg[\s\S]*?<\/svg>/);
+        if (svgMatch) {
+            const svgRaw = svgMatch[0];
+            const base64SVG = btoa(unescape(encodeURIComponent(svgRaw)));
+            latexBoundariedText = `<img src="data:image/svg+xml;base64,${base64SVG}" />`;
+        }}
         let html = marked.parse(latexBoundariedText);
         const regex = /<div class=\"maths\">([\s\S]*?)<\/div>/g;
         let match; while ((match = regex.exec(html)) !== null) {

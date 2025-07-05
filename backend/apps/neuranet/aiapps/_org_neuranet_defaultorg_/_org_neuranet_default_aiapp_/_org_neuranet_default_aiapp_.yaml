@@ -166,9 +166,8 @@ llm_flow:
       documents_js: return airesponse.documents  
       files_js: return request.files
       prompt_noinflate: |                   # means do not inflate this at the flow engine - the calling command will use it as is
-        Answer the following question only using the documents provided below. 
+        Answer the following question only using the documents provided below.
         {{#files.length}}Also use information from the files attached.{{/files.length}}
-
         {{#files.length}}Files attached:{{/files.length}}
         {{#files}}
         Filename: {{{filename}}}
@@ -179,11 +178,73 @@ llm_flow:
         Documents:
         {{#documents}}
         {{{content}}}
-
         {{/documents}}
 
         Question:
         {{{question}}}
+
+        instructions:
+          - Use only the content provided in the attached files and embedded documents to answer the question.
+          - Do not use external knowledge or assumptions under any circumstances.
+
+        chart_generation_rules:
+          condition:
+          - If the question explicitly requests a chart or visual representation (e.g., "create a bar chart", "generate a graph", "visualize the data", "show me a chart").
+          - OR if the attached data clearly supports a better answer through visualization (e.g., numerical comparisons, trends, etc.).
+          response_format: SVG
+          svg_requirements:
+          - Output must be a valid and complete SVG element, starting with <svg> and ending with </svg>.
+          - Do not wrap the SVG in code blocks or use triple backticks.
+          - Ensure text does not overlap: maintain readability using appropriate font sizes, padding, and spacing.
+          - Bars must always start at the x-axis: the bottom of each bar aligns exactly with the x-axis line, regardless of value.
+          - The y-position for the top of each bar should be calculated as: y_bar = y_x-axis - bar_height, where bar_height is proportional to the value.
+          - The height of each bar must be proportional to its value, scaled so the largest value fits within the chart area.
+          - Values shown on top of each bar must be taken directly from the provided files or documents.
+          - Bar and label positions (x, y) must be dynamically calculated based on the values from the provided files or documents, ensuring that if value2 > value1, then y_bar2 < y_bar1.
+          - Bar always starts with reference to the axes, so the x1 and y1 of each bar should be calculated based on the actual data from the provided files or documents.
+          - Example SVG structure:
+          <svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+          <!-- Axes -->
+          <line x1="60" y1="350" x2="550" y2="350" stroke="#222" stroke-width="2"/>
+          <line x1="60" y1="350" x2="60" y2="50" stroke="#222" stroke-width="2"/>
+          <!-- Y-axis label -->
+          <text x="20" y="200" text-anchor="middle" font-size="16" transform="rotate(-90 20,200)">Y-Axis Title</text>
+          <!-- X-axis label -->
+          <text x="305" y="390" text-anchor="middle" font-size="16">X-Axis Title</text>
+          <!-- Example bars: replace values/labels as needed -->
+          <!-- Bar 1 -->
+          <rect x="90" y="220" width="60" height="130" fill="#4F81BD"/>
+          <text x="120" y="215" font-size="14" text-anchor="middle" font-weight="bold">Value1</text>
+          <text x="120" y="370" font-size="14" text-anchor="middle">Label1</text>
+          <!-- Bar 2 -->
+          <rect x="180" y="170" width="60" height="180" fill="#C0504D"/>
+          <text x="210" y="165" font-size="14" text-anchor="middle" font-weight="bold">Value2</text>
+          <text x="210" y="370" font-size="14" text-anchor="middle">Label2</text>
+          <!-- Bar 3 -->
+          <rect x="270" y="120" width="60" height="230" fill="#9BBB59"/>
+          <text x="300" y="115" font-size="14" text-anchor="middle" font-weight="bold">Value3</text>
+          <text x="300" y="370" font-size="14" text-anchor="middle">Label3</text>
+          <!-- Bar 4 -->
+          <rect x="360" y="200" width="60" height="150" fill="#8064A2"/>
+          <text x="390" y="195" font-size="14" text-anchor="middle" font-weight="bold">Value4</text>
+          <text x="390" y="370" font-size="14" text-anchor="middle">Label4</text>
+          <!-- Bar 5 -->
+          <rect x="450" y="260" width="60" height="90" fill="#F79646"/>
+          <text x="480" y="255" font-size="14" text-anchor="middle" font-weight="bold">Value5</text>
+          <text x="480" y="370" font-size="14" text-anchor="middle">Label5</text>
+          </svg>
+          - Values and labels should be replaced with actual data from the documents or files attached.
+          - The position of x and y of each bar should be calculated based on the dynamic 'values' from the documents or files attached, so that the height of the bars is logical (e.g., if value2 > value1, then the y-position of value2's bar top is less than value1's).
+          - The bottom of every bar must always align with the x-axis (y1 of each bar equals y of x-axis).
+
+        plain_text_rules:
+          condition:
+          - If the question does not request or benefit from a chart.
+          response_format: plain-text
+          rules:
+          - Summarize only what's in the documents or attached files.
+          - Do not make assumptions or add external context.
+
 
         The answer is:
       prompt_zh_noinflate: |                # means do not inflate this at the flow engine - the calling command will use it as is
