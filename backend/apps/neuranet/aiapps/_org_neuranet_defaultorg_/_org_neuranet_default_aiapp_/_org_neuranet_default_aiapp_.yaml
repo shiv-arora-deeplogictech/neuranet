@@ -12,7 +12,7 @@ interface:                                  # the interface details
     - ^\.system?.+
 endpoint: llmflow                           # the API endpoint - usually llmflow
 users: ["*"]                                # the * means all users, else must be an array of user IDs
-admins: ["*"]         # the admins for this app - they can train for example
+admins: ["thecompany@tekmonks.com"]         # the admins for this app - they can train for example
 api_uploads_cms_path: uploads               # where files are uploaded by index, unindex APIs
 generated_files_path: _neuranet_generated   # where generated files are placed
 ai_cost_quota: 0.6                          # cost quota for the users, -1 disables checks also

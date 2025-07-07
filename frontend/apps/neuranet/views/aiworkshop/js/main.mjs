@@ -24,7 +24,11 @@ async function initView(data, neuranetappIn) {
     data.VIEW_PATH = VIEW_PATH;
     const id = session.get(APP_CONSTANTS.USERID).toString(), org = session.get(APP_CONSTANTS.USERORG).toString();
     const aiAppsResult = await apiman.rest(`${APP_CONSTANTS.API_PATH}/${API_GET_AIAPPS}`, "GET", {id, org, unpublished: true}, true);
+    if(!data.admin){
     data.aiapps = aiAppsResult.result ? aiAppsResult.aiapps.filter(item => item.admins.includes(id) || item.admins.includes("*")) : [];
+    } else {
+        data.aiapps = aiAppsResult.result ? aiAppsResult.aiapps : [];
+    }
     const skippable_file_patternsSet = aiAppsResult.aiapps.find(item => Array.isArray(item.interface.skippable_file_patterns));
     const skippable_file_patterns = skippable_file_patternsSet ? skippable_file_patternsSet.interface.skippable_file_patterns : [];
     data.aiskipfolders_base64_json = skippable_file_patterns ? util.stringToBase64(JSON.stringify(skippable_file_patterns)) : undefined;
@@ -58,6 +62,8 @@ async function aiappSelected(divAIApp, aiappid) {
 }
 
 async function newAIApp() {
+    const loginresponse = session.get(APP_CONSTANTS.LOGIN_RESPONSE);
+    if(loginresponse.role==="admin"){
     const appName = await _prompt(await i18n.get("AIWorkshop_AIAppNamePrompt"));
     if (!(appName?.trim())) return;   // nothing to do
     if (allAIApps.some(value => value.id.toLowerCase() == appName.toLowerCase())) {    // app already exists, don't overwrite
@@ -70,15 +76,23 @@ async function newAIApp() {
         {id, org, aiappid: appName, op: "new"}, true);
     if (result && result.result) {await neuranetapp.refreshAIApps(); router.reload();}
     else _showError(await i18n.get("AIWorkshop_AIAppGenericError"));
+} else {
+    await _showError(await i18n.get("AIWorkshop_NotAdmin"));
+} 
 }
 
 async function deleteAIApp() {
     if (!selectedAIAppID) return; // nothing to do.
+    const loginresponse = session.get(APP_CONSTANTS.LOGIN_RESPONSE);
+    if(loginresponse.role==="admin"){
     const id = session.get(APP_CONSTANTS.USERID).toString(), org = session.get(APP_CONSTANTS.USERORG).toString();
     const result = await apiman.rest(`${APP_CONSTANTS.API_PATH}/${API_OPERATEAIAPP}`, "POST", 
         {id, org, aiappid: selectedAIAppID, op: "delete"}, true);
     if (result && result.result) {await neuranetapp.refreshAIApps(); router.reload();}
     else _showError(await i18n.get("AIWorkshop_AIAppGenericError"));
+    } else {
+    await _showError(await i18n.get("AIWorkshop_NotAdmin"));
+} 
 }
 
 async function publishAIApp() {
@@ -92,11 +106,16 @@ async function publishAIApp() {
 
 async function unpublishAIApp() {
     if (!selectedAIAppID) return; // nothing to do.
+    const loginresponse = session.get(APP_CONSTANTS.LOGIN_RESPONSE);
+    if(loginresponse.role==="admin"){
     const id = session.get(APP_CONSTANTS.USERID).toString(), org = session.get(APP_CONSTANTS.USERORG).toString();
     const result = await apiman.rest(`${APP_CONSTANTS.API_PATH}/${API_OPERATEAIAPP}`, "POST", 
         {id, org, aiappid: selectedAIAppID, op: "unpublish"}, true);
     if (result && result.result) {await neuranetapp.refreshAIApps(); _showMessage(await i18n.get("AIWorkshop_AIAppGenericSuccess"));}
     else _showError(await i18n.get("AIWorkshop_AIAppGenericError"));
+    } else {
+    await _showError(await i18n.get("AIWorkshop_NotAdmin"));
+    }
 }
 
 async function trainAIApp() {
