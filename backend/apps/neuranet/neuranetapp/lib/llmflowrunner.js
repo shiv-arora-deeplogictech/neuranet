@@ -43,7 +43,7 @@ exports.answer = async function(query, id, org, aiappid, request, flow_section=e
         return {...CONSTANTS.FALSE_RESULT, error: `Error parsing app for ${aiappid}`, reason: exports.REASONS.INTERNAL};
     }
 
-    for (const llmflowCommandDefinition of llmflowCommands) {
+    for (const  llmflowCommandDefinition of llmflowCommands) {
         if (llmflowCommandDefinition[CONDITION]||llmflowCommandDefinition[CONDITION_JS]) 
             llmflowCommandDefinition[CONDITION] = await _expandLLMFlowParam(llmflowCommandDefinition[CONDITION]?CONDITION:CONDITION_JS,
                 llmflowCommandDefinition[CONDITION]||llmflowCommandDefinition[CONDITION_JS], working_memory);

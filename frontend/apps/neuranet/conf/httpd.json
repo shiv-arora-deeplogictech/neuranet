@@ -30,8 +30,8 @@
         "Service-Worker-Allowed": "/"
     },
     "ssl": true,
-    "sslKeyFile": "/Users/rvkapoor/Documents/Programs/source/etc/dnsip_privkey.pem",
-    "sslCertFile": "/Users/rvkapoor/Documents/Programs/source/etc/dnsip_fullchain.pem",
-    "port": 443,
+    "sslKeyFile": "/home/deep/Neuranet-Install/Neuranet-testing/etc/dnsip_privkey.pem",
+    "sslCertFile": "/home/deep/Neuranet-Install/Neuranet-testing/etc/dnsip_fullchain.pem",
+    "port": 8080,
     "host": "{{{hostname}}}"
 }
