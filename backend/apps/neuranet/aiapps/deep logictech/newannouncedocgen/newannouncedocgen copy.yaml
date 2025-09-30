@@ -1,0 +1,174 @@
+# This YAML file is the core of any AI application. The ID in the file, the file name and the hosting folder must
+# match. The file documents rest of the commands and syntax.
+
+---
+id: newannouncedocgen            # the AI application name / ID
+interface:                                  # the interface details
+  type: announcementagentassist                    # this is for the frontend can be chat, translate or search interfaces
+  label: new                       # the label for the app icon on the UI
+  icon: data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+DQo8cGF0aCBkPSJNNTIuMDgzMyAxNi42NjY3SDQ3LjkxNjdWMjkuMTY2N0g1Mi4wODMzVjE2LjY2NjdaIiBmaWxsPSJ1cmwoI3BhaW50MF9saW5lYXJfNDA4XzI2KSIvPg0KPHBhdGggZD0iTTEyLjUgNTYuMjVIMTYuNjY2NlY3Ny4wODMzSDEyLjVDMTEuMTMyIDc3LjA4MzMgOS43Nzc1IDc2LjgxMzkgOC41MTM2OSA3Ni4yOTA0QzcuMjQ5ODkgNzUuNzY2OSA2LjEwMTU2IDc0Ljk5OTYgNS4xMzQyOCA3NC4wMzI0QzMuMTgwNzggNzIuMDc4OSAyLjA4MzMxIDY5LjQyOTMgMi4wODMzMSA2Ni42NjY3QzIuMDgzMzEgNjMuOTA0IDMuMTgwNzggNjEuMjU0NSA1LjEzNDI4IDU5LjMwMUM3LjA4Nzc5IDU3LjM0NzUgOS43MzczMSA1Ni4yNSAxMi41IDU2LjI1WiIgZmlsbD0idXJsKCNwYWludDFfbGluZWFyXzQwOF8yNikiLz4NCjxwYXRoIGQ9Ik04My4zMzMzIDU2LjI1SDg3LjVDOTAuMjYyNyA1Ni4yNSA5Mi45MTIyIDU3LjM0NzUgOTQuODY1NyA1OS4zMDFDOTYuODE5MiA2MS4yNTQ1IDk3LjkxNjYgNjMuOTA0IDk3LjkxNjYgNjYuNjY2N0M5Ny45MTY2IDY5LjQyOTMgOTYuODE5MiA3Mi4wNzg5IDk0Ljg2NTcgNzQuMDMyNEM5Mi45MTIyIDc1Ljk4NTkgOTAuMjYyNyA3Ny4wODMzIDg3LjUgNzcuMDgzM0g4My4zMzMzVjU2LjI1WiIgZmlsbD0idXJsKCNwYWludDJfbGluZWFyXzQwOF8yNikiLz4NCjxwYXRoIGQ9Ik01MCAyNy4wODMzQzU5Ljk0NTYgMjcuMDgzMyA2OS40ODM5IDMxLjAzNDIgNzYuNTE2NSAzOC4wNjY4QzgzLjU0OTEgNDUuMDk5NCA4Ny41IDU0LjYzNzcgODcuNSA2NC41ODMzVjgxLjI1Qzg3LjUgODIuMzU1MSA4Ny4wNjEgODMuNDE0OSA4Ni4yNzk2IDg0LjE5NjNDODUuNDk4MiA4NC45Nzc3IDg0LjQzODQgODUuNDE2NyA4My4zMzMzIDg1LjQxNjdIMTYuNjY2N0MxNS41NjE2IDg1LjQxNjcgMTQuNTAxOCA4NC45Nzc3IDEzLjcyMDQgODQuMTk2M0MxMi45MzkgODMuNDE0OSAxMi41IDgyLjM1NTEgMTIuNSA4MS4yNVY2NC41ODMzQzEyLjUgNTQuNjM3NyAxNi40NTA5IDQ1LjA5OTQgMjMuNDgzNSAzOC4wNjY4QzMwLjUxNjEgMzEuMDM0MiA0MC4wNTQ0IDI3LjA4MzMgNTAgMjcuMDgzM1oiIGZpbGw9IiMxOTlCRTIiLz4NCjxwYXRoIGQ9Ik0zMy4zMzMzIDc3LjA4MzNDNDAuMjM2OSA3Ny4wODMzIDQ1LjgzMzMgNzEuNDg2OSA0NS44MzMzIDY0LjU4MzNDNDUuODMzMyA1Ny42Nzk4IDQwLjIzNjkgNTIuMDgzMyAzMy4zMzMzIDUyLjA4MzNDMjYuNDI5OCA1Mi4wODMzIDIwLjgzMzMgNTcuNjc5OCAyMC44MzMzIDY0LjU4MzNDMjAuODMzMyA3MS40ODY5IDI2LjQyOTggNzcuMDgzMyAzMy4zMzMzIDc3LjA4MzNaIiBmaWxsPSJ1cmwoI3BhaW50M19saW5lYXJfNDA4XzI2KSIvPg0KPHBhdGggZD0iTTY2LjY2NjcgNzcuMDgzM0M3My41NzAyIDc3LjA4MzMgNzkuMTY2NyA3MS40ODY5IDc5LjE2NjcgNjQuNTgzM0M3OS4xNjY3IDU3LjY3OTggNzMuNTcwMiA1Mi4wODMzIDY2LjY2NjcgNTIuMDgzM0M1OS43NjMxIDUyLjA4MzMgNTQuMTY2NyA1Ny42Nzk4IDU0LjE2NjcgNjQuNTgzM0M1NC4xNjY3IDcxLjQ4NjkgNTkuNzYzMSA3Ny4wODMzIDY2LjY2NjcgNzcuMDgzM1oiIGZpbGw9InVybCgjcGFpbnQ0X2xpbmVhcl80MDhfMjYpIi8+DQo8cGF0aCBkPSJNNjYuNjY2NyA3Mi45MTY3QzcxLjI2OSA3Mi45MTY3IDc1IDY5LjE4NTcgNzUgNjQuNTgzM0M3NSA1OS45ODEgNzEuMjY5IDU2LjI1IDY2LjY2NjcgNTYuMjVDNjIuMDY0MyA1Ni4yNSA1OC4zMzMzIDU5Ljk4MSA1OC4zMzMzIDY0LjU4MzNDNTguMzMzMyA2OS4xODU3IDYyLjA2NDMgNzIuOTE2NyA2Ni42NjY3IDcyLjkxNjdaIiBmaWxsPSJ3aGl0ZSIvPg0KPHBhdGggZD0iTTY2LjY2NjcgNjguNzVDNjguOTY3OSA2OC43NSA3MC44MzMzIDY2Ljg4NDUgNzAuODMzMyA2NC41ODMzQzcwLjgzMzMgNjIuMjgyMSA2OC45Njc5IDYwLjQxNjcgNjYuNjY2NyA2MC40MTY3QzY0LjM2NTUgNjAuNDE2NyA2Mi41IDYyLjI4MjEgNjIuNSA2NC41ODMzQzYyLjUgNjYuODg0NSA2NC4zNjU1IDY4Ljc1IDY2LjY2NjcgNjguNzVaIiBmaWxsPSJ1cmwoI3BhaW50NV9saW5lYXJfNDA4XzI2KSIvPg0KPHBhdGggZD0iTTMzLjMzMzMgNzIuOTE2N0MzNy45MzU3IDcyLjkxNjcgNDEuNjY2NyA2OS4xODU3IDQxLjY2NjcgNjQuNTgzM0M0MS42NjY3IDU5Ljk4MSAzNy45MzU3IDU2LjI1IDMzLjMzMzMgNTYuMjVDMjguNzMxIDU2LjI1IDI1IDU5Ljk4MSAyNSA2NC41ODMzQzI1IDY5LjE4NTcgMjguNzMxIDcyLjkxNjcgMzMuMzMzMyA3Mi45MTY3WiIgZmlsbD0id2hpdGUiLz4NCjxwYXRoIGQ9Ik0zMy4zMzMzIDY4Ljc1QzM1LjYzNDUgNjguNzUgMzcuNSA2Ni44ODQ1IDM3LjUgNjQuNTgzM0MzNy41IDYyLjI4MjEgMzUuNjM0NSA2MC40MTY3IDMzLjMzMzMgNjAuNDE2N0MzMS4wMzIxIDYwLjQxNjcgMjkuMTY2NyA2Mi4yODIxIDI5LjE2NjcgNjQuNTgzM0MyOS4xNjY3IDY2Ljg4NDUgMzEuMDMyMSA2OC43NSAzMy4zMzMzIDY4Ljc1WiIgZmlsbD0idXJsKCNwYWludDZfbGluZWFyXzQwOF8yNikiLz4NCjxwYXRoIGQ9Ik01MCAyMC44MzMzQzUyLjMwMTIgMjAuODMzMyA1NC4xNjY3IDE4Ljk2NzkgNTQuMTY2NyAxNi42NjY3QzU0LjE2NjcgMTQuMzY1NSA1Mi4zMDEyIDEyLjUgNTAgMTIuNUM0Ny42OTg4IDEyLjUgNDUuODMzMyAxNC4zNjU1IDQ1LjgzMzMgMTYuNjY2N0M0NS44MzMzIDE4Ljk2NzkgNDcuNjk4OCAyMC44MzMzIDUwIDIwLjgzMzNaIiBmaWxsPSIjMTk5QkUyIi8+DQo8ZGVmcz4NCjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhcl80MDhfMjYiIHgxPSI1MCIgeTE9IjE4Ljk3NzEiIHgyPSI1MCIgeTI9IjI4LjI2NjciIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4NCjxzdG9wIHN0b3AtY29sb3I9IiMwMDc3RDIiLz4NCjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBCNTlBMiIvPg0KPC9saW5lYXJHcmFkaWVudD4NCjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQxX2xpbmVhcl80MDhfMjYiIHgxPSI5LjM3NDk4IiB5MT0iNTUuNjYwNCIgeDI9IjkuMzc0OTgiIHkyPSI4Ny4wNTQyIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+DQo8c3RvcCBzdG9wLWNvbG9yPSIjMDNCM0ZGIi8+DQo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwQjU5QTIiLz4NCjwvbGluZWFyR3JhZGllbnQ+DQo8bGluZWFyR3JhZGllbnQgaWQ9InBhaW50Ml9saW5lYXJfNDA4XzI2IiB4MT0iOTAuNjI1IiB5MT0iNTUuNjYwNCIgeDI9IjkwLjYyNSIgeTI9Ijg3LjA1NDIiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4NCjxzdG9wIHN0b3AtY29sb3I9IiMwM0IzRkYiLz4NCjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBCNTlBMiIvPg0KPC9saW5lYXJHcmFkaWVudD4NCjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQzX2xpbmVhcl80MDhfMjYiIHgxPSIzMy4zMzMzIiB5MT0iNTIuMTk1OCIgeDI9IjMzLjMzMzMiIHkyPSI5MC42MTQ2IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+DQo8c3RvcCBzdG9wLWNvbG9yPSIjMDA3N0QyIi8+DQo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwQjU5QTIiLz4NCjwvbGluZWFyR3JhZGllbnQ+DQo8bGluZWFyR3JhZGllbnQgaWQ9InBhaW50NF9saW5lYXJfNDA4XzI2IiB4MT0iNjYuNjY2NyIgeTE9IjUyLjE5NTgiIHgyPSI2Ni42NjY3IiB5Mj0iOTAuNjE0NiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPg0KPHN0b3Agc3RvcC1jb2xvcj0iIzAwNzdEMiIvPg0KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMEI1OUEyIi8+DQo8L2xpbmVhckdyYWRpZW50Pg0KPGxpbmVhckdyYWRpZW50IGlkPSJwYWludDVfbGluZWFyXzQwOF8yNiIgeDE9IjY2LjY2NjciIHkxPSI1Mi4xOTU4IiB4Mj0iNjYuNjY2NyIgeTI9IjkwLjYxNDYiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4NCjxzdG9wIHN0b3AtY29sb3I9IiMwM0IzRkYiLz4NCjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBCNTlBMiIvPg0KPC9saW5lYXJHcmFkaWVudD4NCjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQ2X2xpbmVhcl80MDhfMjYiIHgxPSIzMy4zMzMzIiB5MT0iNTIuMTk1OCIgeDI9IjMzLjMzMzMiIHkyPSI5MC42MTQ2IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+DQo8c3RvcCBzdG9wLWNvbG9yPSIjMDNCM0ZGIi8+DQo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwQjU5QTIiLz4NCjwvbGluZWFyR3JhZGllbnQ+DQo8L2RlZnM+DQo8L3N2Zz4NCg==
+  skippable_file_patterns: 
+    - ^_neuranet_generated?.+
+    - ^\.system?.+
+endpoint: llmflow                           # the API endpoint - usually llmflow
+users: ["*"]                                # the * means all users, else must be an array of user IDs
+admins: ["thecompany@tekmonks.com"]         # the admins for this app - they can train for example
+api_uploads_cms_path: uploads               # where files are uploaded by index, unindex APIs
+generated_files_path: _neuranet_generated   # where generated files are placed
+ai_cost_quota: 0.6                          # cost quota for the users, -1 disables checks also
+disable_quota_checks: true                  # disable quotas if true
+disable_model_usage_logging: true           # if true, ai model usage logging
+default_embeddings_model: embedding-openai  # model for embedding file ingestion
+ingestiondbs: ["nntfidfdb", "nnvectordb"]   # the ingestion databases
+
+# all flows are sequence of commands which follow the same syntax - command, in, out - in is the input
+# to the command, out is the variable holding the output and name points to the command module and entry
+# point. the command sytax is documented below as well.
+
+pregen_flow: 
+  - command: rephrasedoc                    # entry function name is skipped as the default is generate anyways
+    in: 
+      label: Rephrased
+
+      prompt: |                             # these can be prompt, prompt_docISOLanguage, prompt_fragment_fragmentISOLanguage
+        Rephrase the document below with alternate keywords.
+        {{{fragment}}}
+      prompt_zh: |
+        用替代关键词重新表述下面的文档。
+        {{{fragment}}}
+      prompt_ja: |
+        以下の文書を別のキーワードで言い換えてください。
+        {{{fragment}}}
+      prompt_hi: |
+        नीचे दिए गए दस्तावेज़ को वैकल्पिक कीवर्ड के साथ पुनः लिखें।
+        {{{fragment}}}
+
+      models: 
+        - name: simplellm-openai
+          type: chat
+          model_overrides:                  # this allows us to override model params on a per AI app basis, can be a nested path e.g. driver.host if we are calling API at a different host name etc          
+        - name: embedding-openai
+          type: embeddings
+          model_overrides:                      
+      pregenfile_prefix: reworded
+      pregenfile_dir: _neuranet_generated
+      pregenfile_ext: txt
+      encoding: utf8
+
+
+llm_flow: 
+  - command: llmgptchat                     # default function entry is answer so entry function name is skipped
+    in: 
+      session_id: "{{{request.session_id}}}" 
+      auto_summary: false                   # controls session auto-summary, setting to true will lead to random errors but shorter sessions        
+      question: "{{{query}}}"
+      files_js: return request.files        # _js means evaluate Javascript to find the value
+      aiappid: "{{{aiappid}}}"
+      prompt_noinflate: |                   # means do not inflate this at the flow engine - the calling command will use it as is
+        {{#files.length}}Files attached:{{/files.length}}
+        {{#files}}
+        Filename: {{{filename}}}
+        {{{text}}}
+
+        {{/files}}
+
+        User's query: {{{question}}}
+
+        Rules for Processing:
+
+        - If the user query is a follow-up question, then you must ask another follow-up question, continuing one by one, based on how many required fields are still missing to fully answer the user query.
+
+        - If after follow-up questioning all the fields are available in the conversation history provided, then return a JSON object containing the fields:
+            announcementBy,
+            title,
+            location,
+            body,
+            procurementMethod,
+            winnerName,
+            awardedPrice,
+            awardedPriceText,
+            dateOfIssuing,
+            signedBy,
+            designation
+
+          The key names in JSON must be in English exactly as written above, and the values can be in Thai language, extracted from the user.
+
+        - If the user query already has all the complete details to create a JSON object (with no field missing or empty), then immediately return a JSON object with key-value pairs where:
+            - Keys must match exactly: announcementBy, title, location, body, procurementMethod, winnerName, awardedPrice, awardedPriceText, dateOfIssuing, signedBy, designation
+            - Values must be extracted directly from the user query: {{{question}}} and when extracting the values, keep the procurementMethod inside the title at the end, include the winnerName,awardedPrice,awardedPriceText inside the body.
+
+        - If the user query {{{question}}} has incomplete data and cannot yet fill all the required fields (announcementBy, title, location, body, procurementMethod, winnerName, awardedPrice, awardedPriceText, dateOfIssuing, signedBy, designation), then ask the missing questions one at a time in logical order. Once all fields are filled from the conversation, return a JSON object containing the required fields as keys and the extracted values from the query {{{question}}} or the conversation history.
+
+        Edge Cases:
+
+        - If the conversation history already contains values for some fields, reuse those values together with the newly provided user input to complete the JSON.
+        - If the user requests to regenerate the same document, return the last returned JSON object from conversation history unchanged.
+        - If the user requests to make amendments/changes, then update the last returned JSON with only the provided changes while keeping all other existing values, and return the updated complete JSON.
+        - Always ensure the final output is a valid JSON object with all required fields populated.
+
+
+      prompt_th_noinflate: |
+        {{#files.length}}ไฟล์ที่แนบมา:{{/files.length}}
+        {{#files}}
+        ชื่อไฟล์: {{{filename}}}
+        {{{text}}}
+
+        {{/files}}
+
+        คำถามของผู้ใช้: {{{question}}}
+
+        กฎสำหรับการประมวลผล:
+
+          - ถ้าคำถามของผู้ใช้เป็นคำถามติดตาม (follow-up question) คุณต้องถามคำถามติดตามอีกครั้งทีละหนึ่งข้อ ขึ้นอยู่กับว่าข้อมูลที่จำเป็นยังขาดอยู่กี่ข้อ เพื่อให้สามารถตอบคำถามของผู้ใช้ได้ครบถ้วน
+
+          - ถ้าหลังจากถามคำถามติดตามจนได้ข้อมูลครบทั้งหมดแล้ว ให้นำค่าที่ได้จากการสนทนามาสร้างเป็นวัตถุ JSON โดยต้องมีฟิลด์ดังนี้:
+              announcementBy,
+              title,
+              location,
+              body,
+              procurementMethod,
+              winnerName,
+              awardedPrice,
+              awardedPriceText,
+              dateOfIssuing,
+              signedBy,
+              designation
+
+            ชื่อคีย์ (key) ต้องเป็นภาษาอังกฤษตามที่กำหนดไว้เท่านั้น ส่วนค่าของฟิลด์ให้เป็นภาษาไทย ดึงข้อมูลจากผู้ใช้โดยตรง
+
+          - ถ้าคำถามของผู้ใช้มีข้อมูลครบทั้งหมดพอดีแล้ว ให้สร้าง JSON โดยตรงทันทีด้วย key-value คู่กัน โดยมีเงื่อนไข:
+              - คีย์ต้องตรงตามนี้: announcementBy, title, location, body, procurementMethod, winnerName, awardedPrice, awardedPriceText, dateOfIssuing, signedBy, designation
+              - ค่าต้องนำมาจากคำถามของผู้ใช้โดยตรง
+              - procurementMethod ต้องอยู่ใน title ที่ท้ายสุด
+              - winnerName, awardedPrice, awardedPriceText ต้องถูกรวมเอาไว้ใน body
+
+          - ถ้าคำถามของผู้ใช้มีข้อมูลไม่ครบและไม่สามารถกรอกฟิลด์ทั้งหมดได้ (announcementBy, title, location, body, procurementMethod, winnerName, awardedPrice, awardedPriceText, dateOfIssuing, signedBy, designation) ให้ถามคำถามเพิ่มเติมทีละหนึ่งข้ออย่างมีลำดับตรรกะ จนกว่าจะได้ข้อมูลครบ แล้วค่อยสร้าง JSON โดยรวมค่าที่เก็บจากคำถามก่อนหน้าเข้ามาด้วย
+
+        กรณีพิเศษ:
+
+          - ถ้าประวัติการสนทนาเดิมมีค่าของบางฟิลด์แล้ว ให้นำมาใช้ร่วมกับข้อมูลใหม่ที่ผู้ใช้เพิ่งให้ เพื่อทำให้ JSON ครบถ้วน
+          - ถ้าผู้ใช้ขอสร้างเอกสารเดิมซ้ำ ให้คืนค่า JSON เดิมที่สร้างไว้ล่าสุดโดยไม่เปลี่ยนแปลง
+          - ถ้าผู้ใช้ขอแก้ไข ให้ปรับเฉพาะค่าที่เปลี่ยนแปลง และคืนค่า JSON ครบถ้วนที่แก้ไขแล้ว
+          - ต้องมั่นใจว่า Output ที่สุดท้ายเป็น JSON ที่ถูกต้องและมีฟิลด์ครบทุกฟิลด์ตามที่กำหนด
+
+
+
+      model: 
+        name: chat-openai
+    out: airesponse                         # the final response must output to this property - airesponse for LLM flows
+
+  - command: sanitizejson.parse                     # default function entry is answer so entry function name is skipped
+    in: 
+      airesponse_js: return airesponse;  
+    out: airesponse
+  
+ 
+global_models:
+  - name: chat-openai
+    model_overrides:                    
+      read_ai_response_from_samples: false
+      system_message: You are an AI assistant designed to generate thai announcement documents based on user needs.\n\nYour core task is to decide whether the user query is:\n1. A follow-up answer,\n2. Has complete details to answer, or\n3. Has some incomplete data required.\n\nThe required fields are:\n- announcementBy\n- title\n- location\n- body\n- procurementMethod\n- winnerName\n- awardedPrice\n- awardedPriceText\n- dateOfIssuing\n- signedBy\n- designation\n\nAfter deciding in which direction to move next, the further steps have been mentioned in the user prompt.
+
+
+modules: 
+  llm_history_chat: llm_history_chat.js

@@ -60,49 +60,49 @@ const REASONS = llmflowrunner.REASONS, CHAT_MODEL_DEFAULT = "chat-knowledgebase-
  * 					                 to the exact document
  */
 exports.answer = async (params) => {
-	const id = params.id, org = params.org, session_id = params.session_id, brainid = params.aiappid;
+    const id = params.id, org = params.org, session_id = params.session_id, brainid = params.aiappid;
 
-	LOG.debug(`Got llm GPT chat request from ID ${id} of org ${org}. Incoming params are ${JSON.stringify(params)}`);
+    LOG.debug(`Got llm GPT chat request from ID ${id} of org ${org}. Incoming params are ${JSON.stringify(params)}`);
 
-	const aiappThis = await aiapp.getAIApp(id, org, brainid, true);
+    const aiappThis = await aiapp.getAIApp(id, org, brainid, true);
     if ((!aiappThis.disable_quota_checks) && (!(await quota.checkQuota(id, org, brainid)))) {
-		const errMsg = `Disallowing the GPT chat call, as the user ${id} of org ${org} is over their quota.`;
-		LOG.error(errMsg); params.return_error(errMsg); return;
-	}
+        const errMsg = `Disallowing the GPT chat call, as the user ${id} of org ${org} is over their quota.`;
+        LOG.error(errMsg); params.return_error(errMsg); return;
+    }
 
-	const chatsession = llmchat.getUsersChatSession(id, session_id).chatsession;
-	const aiModelToUseForChat = params.model.name||CHAT_MODEL_DEFAULT, 
-		aiModelObjectForChat = await aiapp.getAIModel(aiModelToUseForChat, params.model.model_overrides, 
-			params.id, params.org, brainid);
-	const aiModuleToUse = `${NEURANET_CONSTANTS.LIBDIR}/${aiModelObjectForChat.driver.module}`
-	let aiLibrary; try{aiLibrary = serverutils.requireWithDebug(aiModuleToUse, DEBUG_MODE);} catch (err) {
-		const errMsg = "Bad AI Library or model - "+aiModuleToUse+", error: "+err;
+    const chatsession = llmchat.getUsersChatSession(id, session_id).chatsession;
+    const aiModelToUseForChat = params.model.name||CHAT_MODEL_DEFAULT, 
+        aiModelObjectForChat = await aiapp.getAIModel(aiModelToUseForChat, params.model.model_overrides, 
+            params.id, params.org, brainid);
+    const aiModuleToUse = `${NEURANET_CONSTANTS.LIBDIR}/${aiModelObjectForChat.driver.module}`
+    let aiLibrary; try{aiLibrary = serverutils.requireWithDebug(aiModuleToUse, DEBUG_MODE);} catch (err) {
+        const errMsg = "Bad AI Library or model - "+aiModuleToUse+", error: "+err;
         LOG.error(errMsg); params.return_error(errMsg, REASONS.INTERNAL); return;
-	}
-	const finalSessionObject = chatsession.length ? await llmchat.trimSession(
-		aiModelObjectForChat.max_memory_tokens||DEFAULT_MAX_MEMORY_TOKENS,
-		llmchat.jsonifyContentsInThisSession(chatsession), aiModelObjectForChat, 
-		aiModelObjectForChat.token_approximation_uplift, aiModelObjectForChat.tokenizer, aiLibrary) : [];
-	if (finalSessionObject.length) finalSessionObject[finalSessionObject.length-1].last = true;
+    }
+    const finalSessionObject = chatsession.length ? await llmchat.trimSession(
+        aiModelObjectForChat.max_memory_tokens||DEFAULT_MAX_MEMORY_TOKENS,
+        llmchat.jsonifyContentsInThisSession(chatsession), aiModelObjectForChat, 
+        aiModelObjectForChat.token_approximation_uplift, aiModelObjectForChat.tokenizer, aiLibrary) : [];
+    if (finalSessionObject.length) finalSessionObject[finalSessionObject.length-1].last = true;
 
-	let filesForPrompt = undefined; if (params.files) for (const file of params.files) {
-		const textsteam = await textextractor.extractTextAsStreams(Readable.from(Buffer.from(file.bytes64, "base64")), file.filename);
-		const text = await neuranetutils.readFullFile(textsteam, "utf8");
-		if (text) {
-			if (!filesForPrompt) filesForPrompt = []; 
-			filesForPrompt.push({filename: file.filename, text});
-		}
-	}
-	
-	const languageDetectedForQuestion =  langdetector.getISOLang(params.question);
-	const promptTemplate =  params[`prompt_${languageDetectedForQuestion}`] || params.prompt;
-	const promptWithQuestionAndFiles = mustache.render(promptTemplate, {...params, files: filesForPrompt}).trim();
-	//,documentSchema: JSON.stringify(params?.documentSchema[params?.document_type])
-	
-	const paramsChat = { id, org, maintain_session: true, session_id, model: aiModelObjectForChat,
+    let filesForPrompt = undefined; if (params.files) for (const file of params.files) {
+        const textsteam = await textextractor.extractTextAsStreams(Readable.from(Buffer.from(file.bytes64, "base64")), file.filename);
+        const text = await neuranetutils.readFullFile(textsteam, "utf8");
+        if (text) {
+            if (!filesForPrompt) filesForPrompt = []; 
+            filesForPrompt.push({filename: file.filename, text});
+        }
+    }
+    
+    const languageDetectedForQuestion =  langdetector.getISOLang(params.question);
+    const promptTemplate =  params[`prompt_${languageDetectedForQuestion}`] || params.prompt;
+    const promptWithQuestionAndFiles = mustache.render(promptTemplate, {...params, files: filesForPrompt,documentSchema: JSON.stringify(params?.documentSchema[params?.document_type])}).trim();
+    
+    const paramsChat = { id, org, maintain_session: true, session_id, model: aiModelObjectForChat,
         session: [{"role": aiModelObjectForChat.user_role, "content": promptWithQuestionAndFiles}],
-		auto_chat_summary_enabled: params.auto_summary||false, raw_question: params.question, aiappid: brainid };
-	const response = await llmchat.chat(paramsChat);
+        auto_chat_summary_enabled: params.auto_summary||false, raw_question: params.question, aiappid: brainid };
+    const response = await llmchat.chat(paramsChat);
+    response.document_type = params.document_type;
 
-	return {...response};
+    return {...response};
 }

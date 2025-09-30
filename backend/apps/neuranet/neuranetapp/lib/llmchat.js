@@ -71,15 +71,23 @@ exports.chat = async params => {
 	} else {
         if (!aiappThis.disable_model_usage_logging) dblayer.logUsage(params.id, response.metric_cost||0, aiModelToUse);
 		else LOG.info(`ID ${params.id} of org ${params.org} used ${response.metric_cost||0} of AI quota. Not logged, as usage logging is disabled by app ${params.aiappid}`);
-		const {aiResponse, promptSummary, responseSummary} = _unmarshallAIResponse(response.airesponse, 
+		let {aiResponse, promptSummary, responseSummary} = _unmarshallAIResponse(response.airesponse, 
 			params.raw_question||params.session.at(-1).content, params.auto_chat_summary_enabled);
+		try{
+			const parsedResponseSummary = JSON.parse(responseSummary); // check if the response summary is JSON
+			responseSummary = JSON.stringify(responseSummary); // if yes, convert to string
+			responseSummary = responseSummary.replace('"{', '{').replace('}"', '}'); // remove extra quotes
+			LOG.info(`*** Response summary is JSON, so converting to string for storage: ${responseSummary} ***`);
+		}catch(err) { 
+			console.log(`*** Response summary is not JSON, so using as is: ${responseSummary} ***`);
+		} // response summary is not JSON, so use it as is
 		if (params.maintain_session != false) {
 			chatsession.push({"role": aiModelObject.user_role, "content": promptSummary}, 
 				{"role": aiModelObject.assistant_role, "content": responseSummary});
 			chatsession[CHAT_SESSION_UPDATE_TIMESTAMP_KEY] = Date.now();
 			const idSessions = DISTRIBUTED_MEMORY.get(sessionKey, {}); idSessions[sessionID] = chatsession;
 			DISTRIBUTED_MEMORY.set(sessionKey, idSessions);
-			LOG.debug(`Chat session saved to the distributed memory is ${JSON.stringify(chatsession)}.`); 
+			// LOG.debug(`Chat session saved to the distributed memory is ${JSON.stringify(chatsession)}.`); // this log is creating errors sometimes due to size
 		}
 		return {response: aiResponse, reason: REASONS.OK, ...CONSTANTS.TRUE_RESULT, session_id: sessionID};
 	}
@@ -90,7 +98,6 @@ exports.getUsersChatSession = (userid, session_id_in) => {
 		sessionKey = `${CHAT_SESSION_MEMORY_KEY_PREFIX}_${userid}`; 
 	const idSessions = DISTRIBUTED_MEMORY.get(sessionKey, {}); chatsession = idSessions[sessionID]||[];
 	LOG.debug(`Distributed memory key for this session is: ${sessionKey}.`);
-	LOG.debug(`Chat session saved previously is ${JSON.stringify(chatsession)}.`); 
 	return {chatsession: utils.clone(chatsession), sessionID, sessionKey};
 }
 
@@ -105,7 +112,7 @@ exports.trimSession = async function(max_session_tokens, sessionObjects, aiModel
 		if (tokensSoFar > max_session_tokens) break;
 		sessionTrimmed.unshift(sessionObjectThis);
 	}
-	return sessionTrimmed;
+	return sessionTrimmed; 
 }
 
 exports.jsonifyContentsInThisSession = session => {

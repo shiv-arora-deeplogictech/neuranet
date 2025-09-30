@@ -62,5 +62,8 @@ export const i18n = {
 "AIWorkshop_AIAppAlreadyExists": "Error an app by that ID already exists",
 "AIWorkshop_NotAdmin": "You do not have required permissions. Please contact your administrator.",
 "AIWorkshop_ClickAppToEdit": "Click to edit",
-"AIWorkshop_KnowledgeBase": "AI Training"
+"AIWorkshop_KnowledgeBase": "AI Training",
+
+"AGENT_AI_WELCOME_MESSAGE": "Hey, which document you want to generate today? \n\nเฮ้ วันนี้คุณต้องการสร้างเอกสารอะไร? ",
+"AGENT_AI_ANNOUNCEMENT_MESSAGE": "nเฮ้ วันนี้คุณต้องการสร้างเอกสารประกาศประเภทไหน?"
 }

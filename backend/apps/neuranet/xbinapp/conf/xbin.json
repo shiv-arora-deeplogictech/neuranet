@@ -13,7 +13,7 @@
     "DEFAULT_QUOTA": 1073741824,
     "DISK_COMPRESSED": false, 
     "DISK_SECURED": false,
-    "DB_SERVER_HOST": "sqlite://{{{hostname}}}",
+    "DB_SERVER_HOST": "",
 
     "CMS_OVERRIDES": {
         "{{{APP_ROOT}}}/../cms": {

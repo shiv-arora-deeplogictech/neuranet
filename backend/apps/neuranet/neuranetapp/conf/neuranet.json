@@ -7,8 +7,8 @@
 "disable_xbin": false,
 "disable_private_cms": true,
 "dynamic_aiapps": true,
-"java_home": "/Users/rvkapoor/Documents/Programs/source/java",
-"db_server_host": "sqlite://{{{hostname}}}",
+"java_home": "/usr/lib/jvm/java-1.21.0-openjdk-amd64/bin/java",
+"db_server_host": "",
 "default_ai_cost_quota": 0.6,
 "fastcache_timeout": 10000,
 "cluster_size": 2,
@@ -26,7 +26,7 @@
             "presence_penalty": 0, "frequency_penalty": 0,  "top_p": 1, "store": false, 
             "response_format": {"type": "text"}
         },
-        "ai_key": "937916dc3805054a2f657c2af513a4bf954678950d2df8b6a0d5c7a7539a63e838a6125aeb83831ce4b04d12bc3344555c7f609a9119c99b43f6505e5342d7a0a476a5bb70816144600f9bdfa4c86835e99dd813a35afe8a9b383c101ac71b38f5b99889bd7e1774d76068268ae3fbbca0d272fed7d2431840df5515654eb14c6686d1972f3e7dad864730cde8ddcde1ec6bc63abe300d10d3bde55ebce247b12fa6881a95c97edfae34aa44 82577als2141rwq294938wasj3029ldwpz",
+        "ai_key": "3d4900d278e13fb8f799d4f10aad58c1aa30bb075a83f477b84da5f48bc0921af74df99d74fa6fd5bd950d7e0982c85c4701b0079d197c7493c708",
         "x_api_key" :"6c1fcadd-dcf0-40b9-ac90-fa4d24c08b46",
         "request_contentpath": "messages",
         "response_contentpath": "data.choices[0].message.content",
@@ -60,7 +60,7 @@
             "input":"${__ORG_NEURANET_PROMPT__}",
             "max_tokens": 8191
         },
-        "ai_key": "937916dc3805054a2f657c2af513a4bf954678950d2df8b6a0d5c7a7539a63e838a6125aeb83831ce4b04d12bc3344555c7f609a9119c99b43f6505e5342d7a0a476a5bb70816144600f9bdfa4c86835e99dd813a35afe8a9b383c101ac71b38f5b99889bd7e1774d76068268ae3fbbca0d272fed7d2431840df5515654eb14c6686d1972f3e7dad864730cde8ddcde1ec6bc63abe300d10d3bde55ebce247b12fa6881a95c97edfae34aa44 82577als2141rwq294938wasj3029ldwpz",
+        "ai_key": "3d4900d278e13fb8f799d4f10aad58c1aa30bb075a83f477b84da5f48bc0921af74df99d74fa6fd5bd950d7e0982c85c4701b0079d197c7493c708",
         "x_api_key" :"6c1fcadd-dcf0-40b9-ac90-fa4d24c08b46",
         "split_separators": {"en":[".","\n"," "], "zh":["。","\n"," ","."], "ja":["。","\n"," ","."], "*":["。",".","\n"," "]},
         "split_joiners": {"*":["\n\n"]},

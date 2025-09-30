@@ -31,11 +31,31 @@ exports.DEFAULT_LLM_FLOW = "llm_flow";
  */
 exports.answer = async function(query, id, org, aiappid, request, flow_section=exports.DEFAULT_LLM_FLOW) {
     const working_memory = {
-        __error: false, __error_message: "", __error_reason: exports.REASONS.OK, query, id, org, 
-        aiappdir: aiapp.getAppDir(id, org, aiappid), queryJSON: JSON.stringify(query), aiappid, request, 
-        return_error: function(message, reason, working_memory) {
-            working_memory.__error = true; working_memory.__error_message = message; LOG.error(message); 
-            working_memory.__error_reason = reason; 
+        __error: false, __error_message: "", __error_reason: exports.REASONS.OK, query, id, org,
+        aiappdir: aiapp.getAppDir(id, org, aiappid), queryJSON: JSON.stringify(query), aiappid, request,
+        return_error: function (message, reason, working_memory) {
+            const regex = /TypeError:\s*chatsession is not iterable/i; // case-insensitive
+
+            if (typeof message === "string" && regex.test(message)) {
+                // Special case: don't treat this as an error
+                working_memory.__error = false;
+                working_memory.__error_message = message;
+                working_memory.__error_reason = reason;
+
+                // Ensure airesponse exists before setting
+                if (!working_memory.airesponse) {
+                    working_memory.airesponse = {};
+                }
+                working_memory.airesponse.chatsession = "Chat Session limit reached, Kindly refresh the Chat";
+
+                LOG.warn("Ignored error (matched regex): " + message);
+            } else {
+                // Default error handling
+                working_memory.__error = true;
+                working_memory.__error_message = message;
+                working_memory.__error_reason = reason;
+                LOG.error(message);
+            }
         }
     };
 
