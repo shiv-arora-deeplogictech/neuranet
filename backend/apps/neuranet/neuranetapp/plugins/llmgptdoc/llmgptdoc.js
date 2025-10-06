@@ -96,7 +96,7 @@ exports.answer = async (params) => {
     
     const languageDetectedForQuestion =  langdetector.getISOLang(params.question);
     const promptTemplate =  params[`prompt_${languageDetectedForQuestion}`] || params.prompt;
-    const promptWithQuestionAndFiles = mustache.render(promptTemplate, {...params, files: filesForPrompt,documentSchema: JSON.stringify(params?.documentSchema[params?.document_type])}).trim();
+    const promptWithQuestionAndFiles = mustache.render(promptTemplate, {...params, files: filesForPrompt,documentSchema: params?.documentSchema[params?.document_type]}).trim();
     
     const paramsChat = { id, org, maintain_session: true, session_id, model: aiModelObjectForChat,
         session: [{"role": aiModelObjectForChat.user_role, "content": promptWithQuestionAndFiles}],

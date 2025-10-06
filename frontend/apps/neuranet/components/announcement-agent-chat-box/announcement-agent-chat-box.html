@@ -391,7 +391,7 @@ div.collapsiblecontent {max-height: 0; overflow: hidden; transition: max-height 
     <span id="messagecontrols">
         <span id="attachedfiles"><!-- attached files go here --></span>
         <input type="checkbox" id="multiline" onclick="this.parentNode.parentNode.querySelector('textarea#messagearea').focus()"><label for="multiline">{{i18n.Multiline}}</label>
-        {{#ATTACHMENT_ALLOWED}}<img id="attach" onclick="monkshu_env.components['announcement-agent-chat-box'].attach(this)" src="{{{COMPONENT_PATH}}}/img/attach.svg" style="display: none;">{{/ATTACHMENT_ALLOWED}}
+        {{#ATTACHMENT_ALLOWED}}<img id="attach" onclick="monkshu_env.components['announcement-agent-chat-box'].attach(this)" src="{{{COMPONENT_PATH}}}/img/attach.svg">{{/ATTACHMENT_ALLOWED}}
         <img id="send" onclick="monkshu_env.components['announcement-agent-chat-box'].send(this)" src="{{{COMPONENT_PATH}}}/img/send.svg">
     </span>
 </div>
