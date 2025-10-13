@@ -26,19 +26,19 @@
 }
 @font-face {
     font-family: 'THSarabunIT9';
-    src: url('fonts/THSarabunITα╣Ö.ttf') format('ttf');
+    src: url('fonts/THSarabunIT9Bold.ttf') format('ttf');
     font-weight: bold;
     font-style: normal;
 }
 @font-face {
     font-family: 'THSarabunIT9';
-    src: url('fonts/THSarabunITα╣Ö.ttf') format('ttf');
+    src: url('fonts/THSarabunIT9Italic.ttf') format('ttf');
     font-weight: normal;
     font-style: italic;
 }
 @font-face {
     font-family: 'THSarabunIT9';
-    src: url('fonts/THSarabunITα╣Ö.ttf') format('ttf');
+    src: url('fonts/THSarabunIT9BoldItalic.ttf') format('ttf');
     font-weight: bold;
     font-style: italic;
 }
@@ -46,25 +46,25 @@
 /* TH Niramit Font Family */
 @font-face {
     font-family: 'TH NiramitIT9';
-    src: url('fonts/THSarabunITα╣Ö.ttf') format('ttf');
+    src: url('fonts/THNiramitIT9.ttf') format('ttf');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'TH NiramitIT9';
-    src: url('fonts/THSarabunITα╣Ö.ttf') format('ttf');
+    src: url('fonts/THNiramitIT9Bold.ttf') format('ttf');
     font-weight: bold;
     font-style: normal;
 }
 @font-face {
     font-family: 'TH NiramitIT9';
-    src: url('fonts/THSarabunITα╣Ö.ttf') format('ttf');
+    src: url('fonts/THNiramitIT9Italic.ttf') format('ttf');
     font-weight: normal;
     font-style: italic;
 }
 @font-face {
     font-family: 'TH NiramitIT9';
-    src: url('fonts/THSarabunITα╣Ö.ttf') format('ttf');
+    src: url('fonts/THNiramitIT9BoldItalic.ttf') format('ttf');
     font-weight: bold;
     font-style: italic;
 }
@@ -268,7 +268,6 @@ span#userprompt, span#airesponse {
     color: #005C84;
     overflow: hidden;
     text-overflow: ellipsis;
-    overflow: auto;
 }
 span#userprompt {
     background-color: #C8EDFF; 
@@ -351,22 +350,6 @@ div.collapsiblebutton::after {content: "  ⇲"; font-size: 1.5em;}
 div.showingbutton::after {content: "  ⇱"; font-size: 1.5em;}
 
 div.collapsiblecontent {max-height: 0; overflow: hidden; transition: max-height 0.2s ease-out;}
-#announcement_document_template{
-    border : 1px solid black;
-    overflow-x: auto;
-    
-}
-
-#announcement-template{
-    border-radius: 0.5em !important;
-    overflow: auto !important;
-    max-width: 100% !important;
-    max-height: 70vh !important;
-    padding: 1em !important;
-    box-sizing: border-box !important;
-    background: white !important;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1) !important;
-}
 </style>
 {{{APP_CONSTANTS.MOBILE_MEDIA_QUERY_PORTRAIT_START}}}
 	div#start {flex-direction: column;}
@@ -471,27 +454,18 @@ div.collapsiblecontent {max-height: 0; overflow: hidden; transition: max-height 
    <style>
       @font-face {
          font-family: 'THSarabunNew';
-         src: url('{{{COMPONENT_PATH}}}/fonts/THSarabunNew.ttf') format('truetype');
-         font-weight: normal;
-         font-style: normal;
-         font-display: swap;
-      }
-      @font-face {
-         font-family: 'THSarabunITα╣Ö';
-         src: url('{{{COMPONENT_PATH}}}/fonts/THSarabunITα╣Ö.ttf') format('truetype');
+         src: url('{{{FONTS_PATH}}}/THSarabunNew.ttf') format('truetype');
          font-weight: normal;
          font-style: normal;
          font-display: swap;
       }
    </style>
-   <div id="announcement-template" style="width: 210mm; min-height: 297mm; margin: 0 auto; padding: 2.8cm 2cm 2cm 3cm; background: white; font-family: 'THSarabunNew', 'Sarabun', serif; font-size: 16pt; line-height: 1.4; color: #333333;">
+   <div style="width: 210mm; min-height: 297mm; margin: 0 auto; padding: 2.8cm 2cm 2cm 3cm; background: white; font-family: 'THSarabunNew', 'Sarabun', serif; font-size: 16pt; line-height: 1.4; color: #333333;">
         <!-- Header Section -->
         <div style="text-align: center; margin-bottom: 1cm;">
-            <img src="{{{COMPONENT_PATH}}}/img/garuda.jpg" alt="ตราคุฑ" style="height: 3cm; width: auto; margin-bottom: 0.5cm; display: block; margin-left: auto; margin-right: auto;">
+            <img src="{{{COMPONENT_PATH}}}/img/th-garuda-2.jpg" alt="ตราคุฑ" style="height: 3cm; width: auto; margin-bottom: 0.5cm; display: block; margin-left: auto; margin-right: auto;">
             <p style="font-size: 16pt; margin: 0; line-height: 1.3;">&#123;&#123;announcementBy&#125;&#125;</p>
             <p style="font-size: 16pt; margin: 0.2cm 0; line-height: 1.3;">&#123;&#123;title&#125;&#125;</p>
-            &#123;&#123;#IS_Thai&#125;&#125;<p style="font-size: 16pt; margin: 0.2cm 0; line-height: 1.3;">&#123;&#123;location&#125;&#125;</p>&#123;&#123;/IS_Thai&#125;&#125;
-            &#123;&#123;#IS_Eng&#125;&#125;<p style="font-size: 16pt; margin: 0.2cm 0; line-height: 1.3;">&#123;&#123;location&#125;&#125;</p>&#123;&#123;/IS_Eng&#125;&#125;
             <div style="width: 30%; margin: 0.5cm auto; border-bottom: 2px dotted #000000;"></div>
         </div>
 
@@ -499,16 +473,14 @@ div.collapsiblecontent {max-height: 0; overflow: hidden; transition: max-height 
         <div style="margin-top: 0.8cm; text-align: justify;">
             <div style="text-indent: 2.5cm; margin-bottom: 0.6em; line-height: 1.4; white-space: pre-line;">&#123;&#123;body&#125;&#125;</div>
             
-            &#123;&#123;#IS_Thai&#125;&#125;<div style="text-indent: 2.5cm; margin-top: 1em; margin-bottom: 0.6em; line-height: 1.4;">จึงประกาศให้ทราบโดยทั่วกัน</div>&#123;&#123;/IS_Thai&#125;&#125;
-            &#123;&#123;#IS_Eng&#125;&#125;<div style="margin-top: 1em; margin-bottom: 0.6em; line-height: 1.4;">Therefore, this is announced for general information.</div>&#123;&#123;/IS_Eng&#125;&#125;
-            
             <p style="text-indent: 5.5cm; margin-top: 1.5em; margin-bottom: 4em;">&#123;&#123;#IS_Thai&#125;&#125;ประกาศ ณ วันที่ &#123;&#123;dateOfIssuing&#125;&#125;&#123;&#123;/IS_Thai&#125;&#125;&#123;&#123;#IS_Eng&#125;&#125;Announced on: &#123;&#123;dateOfIssuing&#125;&#125;&#123;&#123;/IS_Eng&#125;&#125;</p>
         </div>
 
         <!-- Signature Section -->
         <div style="text-align: center; margin-top: 2cm; margin-left: 40%; max-width: 40%;">
-            <p style="margin-bottom: 0.3cm;">&#123;&#123;signedBy&#125;&#125;</p>
+            <p style="margin-bottom: 0.3cm;">(&#123;&#123;signedBy&#125;&#125;)</p>
             <p style="margin-bottom: 0.2cm;">&#123;&#123;designation&#125;&#125;</p>
+            <p style="margin-bottom: 0;">&#123;&#123;position&#125;&#125;</p>
         </div>
     </div>
 </template>

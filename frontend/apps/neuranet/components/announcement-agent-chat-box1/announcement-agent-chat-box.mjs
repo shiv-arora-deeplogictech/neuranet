@@ -17,14 +17,14 @@ import { monkshu_component } from "/framework/js/monkshu_component.mjs";
 import {i18n} from "/framework/js/i18n.mjs"
 
 const COMPONENT_PATH = util.getModulePathFromURL(import.meta.url), DEFAULT_MAX_ATTACH_SIZE = 4194304,
-    DEFAULT_MAX_ATTACH_SIZE_ERROR = "File size is larger than allowed size";
+    DEFAULT_MAX_ATTACH_SIZE_ERROR = "File size is larger than allowed size",FONTS_PATH = util.getModulePathFromURL(import.meta.url);
 let MUSTACHE;
 // let jsPDF;
 
 async function elementConnected(host) {
     const ATTACHMENT_ALLOWED = host.getAttribute("attach")?.toLowerCase() == "true";
     const MIC_ALLOWED = host.getAttribute("mic")?.toLowerCase() == "true";
-    if(ATTACHMENT_ALLOWED) agent_chat_box.setDataByHost(host, { COMPONENT_PATH, ATTACHMENT_ALLOWED: "true"});
+    if(ATTACHMENT_ALLOWED) agent_chat_box.setDataByHost(host, { COMPONENT_PATH,FONTS_PATH, ATTACHMENT_ALLOWED: "true"});
     if(MIC_ALLOWED) agent_chat_box.setDataByHost(host, { COMPONENT_PATH, MIC_ALLOWED: "true"});
     const memory = agent_chat_box.getMemoryByHost(host); memory.FILES_ATTACHED = [];
     MUSTACHE = await router.getMustache();
@@ -48,14 +48,11 @@ async function send(containedElement) {
     const onRequest = host.getAttribute("onrequest"), api_chat = host.getAttribute("chatapi");
     const requestProcessor = util.createAsyncFunction(`return await ${onRequest};`), 
         request = await requestProcessor({chatbox: this, prompt: userPrompt, files: _getMemory(containedElement).FILES_ATTACHED});
-    let result;
-    if(isNewDocPrompt(userPrompt)){
-        result = {error: "Please refresh the chat to generate a new Document.\nThis chat session is now closed."};
-    } else result = await apiman.rest(`${api_chat}`, "POST", request, true);
+    const result = await apiman.rest(`${api_chat}`, "POST", request, true);
 
     const onResult = host.getAttribute("onresult"), resultProcessor = util.createAsyncFunction(`return await ${onResult};`), 
         processedResult = await resultProcessor({chatbox: this, result});
-    _insertAIResponse(shadowRoot, userMessageArea, userPrompt, processedResult[processedResult.ok?"response":"error"], oldInsertion, true);
+    _insertAIResponse(shadowRoot, userMessageArea, userPrompt, processedResult[processedResult.ok?"response":"error"], oldInsertion, true,result.document_type);
 
     if (!processedResult.ok) {  // sending more messages is now disabled as this chat is dead due to error
         buttonSendImg.onclick = ''; buttonSendImg.src = `${COMPONENT_PATH}/img/senddisabled.svg`;
@@ -64,12 +61,6 @@ async function send(containedElement) {
         disMessage.classList.remove("disabled"), checkBox.removeAttribute("disabled");
         userMessageArea.readOnly = false;
     }   
-}
-
-const isNewDocPrompt = (userPrompt) => {
-    const newDocKeywords = ["new document", "new announcement", "create new", "start new","new chat", "เอกสารใหม่", "ประกาศใหม่", "สร้างใหม่", "เริ่มใหม่","แชทใหม่"];
-    const promptLower = userPrompt.toLowerCase();
-    return newDocKeywords.some(keyword => promptLower.includes(keyword));
 }
 
 async function insertWelcomeMessage(shadowRoot, userMessageArea){
@@ -123,7 +114,7 @@ function _detachAllFiles(shadowRoot, clearAttachedFileMemory) {
     while (insertionNode.firstChild) insertionNode.removeChild(insertionNode.firstChild);
 }
 
-function _insertAIResponse(shadowRoot, userMessageArea, userPrompt, aiResponse, oldInsertion, clearAttachedFileMemory) {
+function _insertAIResponse(shadowRoot, userMessageArea, userPrompt, aiResponse, oldInsertion, clearAttachedFileMemory,doc_type) {
     const insertionTemplate = shadowRoot.querySelector("template#chatresponse_insertion_template").content.cloneNode(true);
     const insertion = oldInsertion || insertionTemplate.querySelector("div#insertiondiv");
     if (userPrompt) insertion.querySelector("span#userprompt").innerHTML = userPrompt;
@@ -134,6 +125,7 @@ function _insertAIResponse(shadowRoot, userMessageArea, userPrompt, aiResponse, 
         let htmlContent;
         let isAnnouncementDoc = false;
         try {
+            if(typeof aiResponse === "string") aiResponse = JSON.parse(aiResponse);
             const json = aiResponse;
             json.IS_Thai = isThaiLine(json.location);
             json.IS_Eng = !json.IS_Thai;
@@ -142,9 +134,10 @@ function _insertAIResponse(shadowRoot, userMessageArea, userPrompt, aiResponse, 
                 isAnnouncementDoc = true;
                 // Optionally set logoSrc, or use a default
                 json.logoSrc = `${COMPONENT_PATH}/img/garuda.jpg`;
-                const announcementTemplate = shadowRoot.querySelector("template#announcement_document_template").innerHTML.trim();
-                console.log("Announcement Template: ", announcementTemplate);
-                htmlContent = MUSTACHE.render(announcementTemplate, json);
+                let templateToRender;
+                if(doc_type === "announcement_letter")  templateToRender = shadowRoot.querySelector("template#announcement_document_template").innerHTML.trim();
+                console.log("Announcement Template: ", templateToRender);
+                htmlContent = MUSTACHE.render(templateToRender, json);
             }
         } catch (e) {
             // Not JSON, fallback

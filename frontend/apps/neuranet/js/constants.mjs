@@ -9,6 +9,7 @@ const APP_PATH = `${FRONTEND}/apps/${APP_NAME}`;
 const LIB_PATH = `${APP_PATH}/js`;
 const CONF_PATH = `${APP_PATH}/conf`;
 const API_PATH = `${BACKEND}/apps/${APP_NAME}`;
+const FONTS_PATH = `${APP_PATH}/fonts`;
 const COMPONENTS_PATH = `${APP_PATH}/components`;
 
 const MAIN_HTML = APP_PATH+"/main.html";
@@ -22,7 +23,7 @@ const ABOUT_URL = "https://lttl.app/Z32obg";
 
 export const APP_CONSTANTS = {
     FRONTEND, BACKEND, APP_PATH, APP_NAME, COMPONENTS_PATH, API_PATH, LIB_PATH, CONF_PATH,  
-    MAIN_HTML, LOGIN_HTML, INDEX_HTML, ERROR_HTML, LOGINRESULT_HTML, ABOUT_URL, 
+    MAIN_HTML, LOGIN_HTML, INDEX_HTML, ERROR_HTML, LOGINRESULT_HTML, ABOUT_URL,FONTS_PATH, 
 
     SESSION_NOTE_ID: "com_monkshu_ts",
 
